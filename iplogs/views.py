@@ -8,6 +8,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
 def store_info(request):
+    print(request)
     ip = get_client_ip(request)
     user_agent = request.META.get('HTTP_USER_AGENT', '')
     referrer = request.META.get('HTTP_REFERER', '')
@@ -16,6 +17,7 @@ def store_info(request):
     method = request.method
     cookies = request.COOKIES
     session_data = request.session
+    meta_request = request.META
 
     ip_address_entry = IPAddress.objects.create(
         ip_address=ip, 
@@ -25,7 +27,8 @@ def store_info(request):
         path=path,
         method=method,
         cookies=cookies,
-        session_data=session_data
+        session_data=session_data,
+        meta_request=meta_request
     )
 
     template = loader.get_template("iplogs/index.html")

@@ -9,6 +9,7 @@ class IPAddress(models.Model):
     method = models.CharField(max_length=200, default="Unknown")
     cookies = models.TextField(default="Unknown")
     session_data = models.TextField(default="Unknown")
+    meta_request = models.TextField(default="Unknown")
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
