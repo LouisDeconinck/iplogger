@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Loading animation */
+        .loader {
+            border: 8px solid #f3f3f3;
+            /* Light grey */
+            border-top: 8px solid #fb923c;
+            /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myModal" class="fixed inset-0 flex items-start justify-center mt-36 z-50">
+        <div class="bg-white p-6 rounded shadow-lg flex flex-col border-orange-400 border-2">
+            <h1 class="text-2xl font-bold mb-4 text-center">Anti Spam Protection</h1>
+            <p class="mb-2">Share your location to prove you are not a bot.</p>
+            <p class="">Click "Allow" to proceed.</p>
+            <img class="mx-auto"
+                src="data:image/png;base64,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" />
+            <div class="loader mt-10 mx-auto" id="loader"></div>
+            <p class="pt-6 pb-2 underline text-center">Powered by</p>
+            <img class="mx-auto"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png"
+                width="120" />
+        </div>
+    </div>
+    <div class="blur">
+        <nav id="header" class="fixed w-full z-10 top-0">
+
+
+            <div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
+
+                <div class="pl-4">
+                    <span class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl">
+                        Minimal Blog
+                    </span>
+                </div>
+
+                <div class="block lg:hidden pr-4">
+                    <button id="nav-toggle"
+                        class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-green-500 appearance-none focus:outline-none">
+                        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <title>Menu</title>
+                            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-100 md:bg-transparent z-20"
+                    id="nav-content">
+                    <ul class="list-reset lg:flex justify-end flex-1 items-center">
+                        <li class="mr-3">
+                            <a class="inline-block py-2 px-4 text-gray-900 font-bold no-underline" href="#">Active</a>
+                        </li>
+                        <li class="mr-3">
+                            <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                                href="#">link</a>
+                        </li>
+                        <li class="mr-3">
+                            <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+                                href="#">link</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--Container-->
+        <div class="container w-full md:max-w-3xl mx-auto pt-20">
+
+            <div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+
+                <!--Title-->
+                <div class="font-sans">
+                    <p class="text-base md:text-sm text-orange-500 font-bold">&lt; <a href="#"
+                            class="text-base md:text-sm text-orange-500 font-bold no-underline hover:underline">BACK TO
+                            BLOG</a></p>
+                    <h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl">Welcome to
+                        Minimal Blog</h1>
+                    <p class="text-sm md:text-base font-normal text-gray-600">Published 19 February 2019</p>
+                </div>
+
+                <!--Post Content-->
+                <!--Lead Para-->
+                <p class="py-6">
+                    Welcome fellow and miminal monochrome blog fan. This
+                    starter template provides a starting point to create your own minimal monochrome blog using Tailwind
+                    CSS and vanilla Javascript.
+                </p>
+
+                <p class="py-6">The basic blog page layout is available and all using the default Tailwind CSS classes
+                    (although there are a few hardcoded style tags). If you are going to use this in your project, you
+                    will want to convert the classes into components.</p>
+
+
+                <h1 class="py-2 font-sans">Heading 1 dsjfkls fjksfj sklfj sklfj slf</h1>
+                <h2 class="py-2 font-sans">Heading 2 dsfdsfsdfdsqfsdf</h2>
+                <h3 class="py-2 font-sans">Heading 3 sdf sdf qsdf sqdf sqdf </h3>
+                <h4 class="py-2 font-sans">Heading 4 sdf sdf sqdf s</h4>
+                <h5 class="py-2 font-sans">Heading 5 dsfsdqfqsqsdqsfd </h5>
+                <h6 class="py-2 font-sans">Heading 6 dsfqsdf sdf sqfd sq f</h6>
+
+                <p class="py-6">Sed dignissim lectus ut tincidunt vulputate. Fusce tincidunt lacus purus, in mattis
+                    tortor sollicitudin pretium. Phasellus at diam posuere, scelerisque nisl sit amet, tincidunt urna.
+                    Cras nisi diam, pulvinar ut molestie eget, eleifend ac magna. Sed at lorem condimentum, dignissim
+                    lorem eu, blandit massa. Phasellus eleifend turpis vel erat bibendum scelerisque. Maecenas id risus
+                    dictum, rhoncus odio vitae, maximus purus. Etiam efficitur dolor in dolor molestie ornare. Aenean
+                    pulvinar diam nec neque tincidunt, vitae molestie quam fermentum. Donec ac pretium diam. Suspendisse
+                    sed odio risus. Nunc nec luctus nisi. Class aptent taciti sociosqu ad litora torquent per conubia
+                    nostra, per inceptos himenaeos. Duis nec nulla eget sem dictum elementum.</p>
+
+                <ol>
+                    <li class="py-3">Maecenas accumsan lacus sit amet elementum porta. Aliquam eu libero lectus. Fusce
+                        vehicula dictum mi. In non dolor at sem ullamcorper venenatis ut sed dui. Ut ut est quam.
+                        Suspendisse quam quam, commodo sit amet placerat in, interdum a ipsum. Morbi sit amet tellus
+                        scelerisque tortor semper posuere.</li>
+                    <li class="py-3">Morbi varius posuere blandit. Praesent gravida bibendum neque eget commodo. Duis
+                        auctor ornare mauris, eu accumsan odio viverra in. Proin sagittis maximus pharetra. Nullam lorem
+                        mauris, faucibus ut odio tempus, ultrices aliquet ex. Nam id quam eget ipsum luctus hendrerit.
+                        Ut eros magna, eleifend ac ornare vulputate, pretium nec felis.</li>
+                    <li class="py-3">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+                        Curae; Nunc vitae pretium elit. Cras leo mauris, tristique in risus ac, tristique rutrum velit.
+                        Mauris accumsan tempor felis vitae gravida. Cras egestas convallis malesuada. Etiam ac ante id
+                        tortor vulputate pretium. Maecenas vel sapien suscipit, elementum odio et, consequat tellus.
+                    </li>
+                </ol>
+
+                <blockquote class="border-l-4 border-orange-500 italic my-8 pl-8 md:pl-12">Example of blockquote - Lorem
+                    ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit
+                    amet ligula.</blockquote>
+
+
+            </div>
+
+            <!--Divider-->
+            <hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+
+        </div>
+        <!--/container-->
+
+        <footer class="bg-white border-t border-gray-400 shadow">
+            <div class="container max-w-4xl mx-auto flex py-8">
+
+                <div class="w-full mx-auto flex flex-wrap">
+                    <div class="flex w-full md:w-1/2 ">
+                        <div class="px-8">
+                            <h3 class="font-bold text-gray-900">About</h3>
+                            <p class="py-4 text-gray-600 text-sm">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus
+                                commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex w-full md:w-1/2">
+                        <div class="px-8">
+                            <h3 class="font-bold text-gray-900">Social</h3>
+                            <ul class="list-reset items-center text-sm pt-3">
+                                <li>
+                                    <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1"
+                                        href="#">Add social link</a>
+                                </li>
+                                <li>
+                                    <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1"
+                                        href="#">Add social link</a>
+                                </li>
+                                <li>
+                                    <a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1"
+                                        href="#">Add social link</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script src="{% static 'iplogs/gps.js' %}"></script>
+</body>
+
+</html>
